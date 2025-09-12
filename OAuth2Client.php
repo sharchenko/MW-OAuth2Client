@@ -48,18 +48,18 @@ class OAuth2ClientHooks {
 			'icon' => 'oauth',
 		);
 		if( $inExt ) {
-			$links['user-menu']['anon_oauth_login']['href'] = Skin::makeSpecialUrlSubpage( 'OAuth2Client', 'redirect' );
+			$links['user-menu']['anon_oauth_login']['href'] = SpecialPage::getTitleFor( 'OAuth2Client', 'redirect' )->getFullURL();
 		} else {
 			# Due to bug 32276, if a user does not have read permissions,
 			# $this->getTitle() will just give Special:Badtitle, which is
 			# not especially useful as a returnto parameter. Use the title
 			# from the request instead, if there was one.
 			# see SkinTemplate->buildPersonalUrls()
-			$links['user-menu']['anon_oauth_login']['href'] = Skin::makeSpecialUrlSubpage(
+			$links['user-menu']['anon_oauth_login']['href'] = SpecialPage::getTitleFor(
 				'OAuth2Client',
 				'redirect',
 				wfArrayToCGI( array( 'returnto' => $page ) )
-			);
+			)->getFullURL();
 		}
 
 		if( isset( $personal_urls['anonlogin'] ) ) {
